@@ -1,11 +1,7 @@
 using AutoMapper;
 using Core.Application;
-using Core.Application.Interfaces;
-using Core.Domain.Singleton;
 using Core.BaseWeb.AutoMapper;
 using Core.Data.EF.Context;
-using Core.Data.Repository;
-using Core.Domain.Repository.Interfaces.Concrete;
 using Core.Domain.Interfaces;
 using Core.Domain.Repository;
 using Core.Domain.Repository.Interfaces;
@@ -15,9 +11,6 @@ using Core.Shared.Kernel.Handles;
 using Core.Shared.Kernel.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Core.Domain.Interfaces.Concrete.Services;
-using Core.Domain.Services;
-using Core.Domain.Interfaces.Concrete.Repository;
 using System;
 
 namespace Core.Infrastructure
@@ -46,10 +39,7 @@ namespace Core.Infrastructure
 
     public static void InjectDataRepositories(this IServiceCollection services)
     {
-      services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-      services.AddTransient<IDadosLojaRepository, DadosLojaRepository>();
-      services.AddTransient<IUsuarioRepository, UsuarioRepository>();
-      services.AddTransient<IApplicationModuleRepository, ApplicationModuleRepository>();
+
     }
 
     public static void InjectDomainSpecifications(this IServiceCollection services)
