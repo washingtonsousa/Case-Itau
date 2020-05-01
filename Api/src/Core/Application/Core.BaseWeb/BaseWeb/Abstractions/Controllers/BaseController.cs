@@ -63,22 +63,5 @@ namespace Core.BaseWeb.Controllers.Abstractions
 
     }
 
-
-    protected IActionResult ResponseWithAllNotifications<T>(T args, string Message = "") where T : new()
-    {
-
-      var response = new ResponseViewModel();
-
-      if (_domainNotification.HasNotifications())
-      {
-        return BadRequest(_domainNotification.Notify());
-      }
-
-      response.DefaultMessage(Message, args);
-
-      return Ok(response);
-
-    }
-
   }
 }

@@ -14,7 +14,7 @@ namespace Core.BaseWeb.ViewModel.Response
     public ResponseViewModel DefaultMessage(string Message = "", object result = null)
     {
 
-      Key = "Messsage";
+      Key = "Message";
       Value = Message;
       _result = result;
 

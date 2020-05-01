@@ -5,18 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Data\Core.Shared.Data\Core.Shared.Data.csproj" />
     <ProjectReference Include="..\..\Shared\SharedKernel\Shared.Kernel\Core.Shared.Kernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Builders\" />
-    <Folder Include="Entities\Concrete\EntityFramework\" />
-    <Folder Include="Enums\" />
     <Folder Include="Interfaces\Concrete\Repository\" />
     <Folder Include="Interfaces\Concrete\Services\" />
     <Folder Include="Singleton\" />

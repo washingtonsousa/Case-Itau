@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Core.BaseWeb\BaseWeb\Core.BaseWeb.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

@@ -34,7 +34,7 @@ namespace Itau.Case.Brasileirao.Web
     {
 
       if(_environment.IsDevelopment())
-        ConfigData.IsDebug = true;
+        Constants.IS_DEBUG = true;
 
       services.AddCors(options =>
       {
@@ -87,7 +87,7 @@ namespace Itau.Case.Brasileirao.Web
 
       app.UseHttpsRedirection();
       app.UseRouting();
-
+        
       app.UseEndpoints(end =>
       {
         end.MapControllers();

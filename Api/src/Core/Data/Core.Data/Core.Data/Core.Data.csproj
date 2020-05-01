@@ -10,16 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Other-Data-Origins\Dados.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Other-Data-Origins\Dados.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
@@ -44,8 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EF\Mappings\" />
-    <Folder Include="EF\Seed\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 
