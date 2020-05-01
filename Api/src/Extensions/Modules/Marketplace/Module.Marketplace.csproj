@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Module.Marketplace</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Application\Core.BaseWeb\BaseWeb\Core.BaseWeb.csproj" />
+    <ProjectReference Include="..\..\..\Core\Domain\Core.Domain\Core.Domain\Core.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Core\Shared\SharedKernel\Shared.Kernel\Core.Shared.Kernel.csproj" />
+  </ItemGroup>
+
+</Project>
