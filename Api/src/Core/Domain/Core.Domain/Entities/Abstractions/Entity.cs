@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.Domain.Entities.Abstractions
 {
-    public class Entity : Notifiable
+    public class Entity
     {
     }
 }

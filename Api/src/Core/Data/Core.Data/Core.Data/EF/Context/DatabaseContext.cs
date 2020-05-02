@@ -1,19 +1,20 @@
 using System;
-using System.Threading.Tasks;
-using Core.Domain.Entities;
+using Core.Data.EF.Mappings;
+using Core.Domain.Entities.Concrete.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Core.Data.EF.Context
 {
-
-
     public partial class DatabaseContext : DbContext
     {
 
-
         IConfiguration _configuration;
+        public DbSet<Estado> Estados { get; set; }
+        public DbSet<Time> Times { get; set; }
+        public DbSet<Posicao> Posicoes { get; set; }
+        public DbSet<Campeonato> Campeonatos { get; set; }
 
         public DatabaseContext(IConfiguration configuration)
         {
@@ -25,8 +26,6 @@ namespace Core.Data.EF.Context
         {
             _configuration = configuration;
         }
-
-     
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,9 +41,10 @@ namespace Core.Data.EF.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-     
-
-   
+            modelBuilder.ApplyConfiguration(new PosicaoMapping());
+            modelBuilder.ApplyConfiguration(new CampeonatoMapping());
+            modelBuilder.ApplyConfiguration(new TimeMapping());
+            modelBuilder.ApplyConfiguration(new EstadoMapping());
         }
     }
 }

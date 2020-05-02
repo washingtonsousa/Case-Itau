@@ -7,18 +7,63 @@ namespace Core.Domain.Entities.Concrete.Database
 {
     public class Posicao
     {
-        public Posicao(Time time, Brasileirao brasileirao)
+        public Posicao(Time time, Campeonato brasileirao)
         {
             Time = time;
-            Brasileirao = brasileirao;
+            Campeonato = brasileirao;
+        }
+
+        public Posicao(Time time, 
+            Campeonato brasileirao, 
+            int pontos, 
+            int jogos, 
+            int vitorias, 
+            int empates, 
+            int derrotas, 
+            int golsPro, 
+            int golsContra, 
+            int posicaoValue)
+        {
+            Time = time;
+            Campeonato = brasileirao;
+            Pontos = pontos;
+            Jogos = jogos;
+            Vitorias = vitorias;
+            Empates = empates;
+            Derrotas = derrotas;
+            GolsPro = golsPro;
+            GolsContra = golsContra;
+            PosicaoValue = posicaoValue;
+        }
+
+        public Posicao(int idTime, int idCampeonato, int pontos, int jogos, int vitorias, int empates, int derrotas, int golsPro, int golsContra, int posicaoValue)
+        {
+            Pontos = pontos;
+            Jogos = jogos;
+            Vitorias = vitorias;
+            Empates = empates;
+            Derrotas = derrotas;
+            GolsPro = golsPro;
+            GolsContra = golsContra;
+            PosicaoValue = posicaoValue;
+            IdTime = idTime;
+            IdCampeonato = idCampeonato;
         }
 
         [Key]
         [Required]
         public int Id { get; set; }
-
         public Time Time { get; set; }
-        public Brasileirao Brasileirao { get; set;}
-
+        public Campeonato Campeonato { get; set;}
+        public int Pontos { get; set; }
+        public int Jogos { get; set; }
+        public int Vitorias { get; set; }
+        public int Empates { get; set; }
+        public int Derrotas { get; set; }
+        public int GolsPro { get; set; }
+        public int GolsContra { get; set; }
+        public int PosicaoValue { get; set; }
+        public int IdTime { get; set; }
+        public int IdCampeonato { get; set; }
     }
 }

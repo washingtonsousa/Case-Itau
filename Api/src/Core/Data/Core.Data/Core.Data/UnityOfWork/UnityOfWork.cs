@@ -3,15 +3,17 @@ using Core.Data.EF.Context;
 using System;
 using System.Threading.Tasks;
 using Core.Shared.Kernel.Events;
+using Core.Shared.Kernel.Abstractions;
+using Core.Shared.Kernel.Interfaces;
 
-namespace Core.Domain.Repository.UnityOfWork
+namespace Core.Data.UnityOfWork
 {
-    public class UnityOfWork : IUnityOfWork
+    public class UnityOfWork : Notifiable, IUnityOfWork
     {
 
         private DatabaseContext Context;
 
-        public UnityOfWork(DatabaseContext context)
+        public UnityOfWork(DatabaseContext context, IDomainNotificationContext<DomainNotification> domainNotificationContext) : base (domainNotificationContext)
         {
             Context = context;
         }
@@ -43,7 +45,7 @@ namespace Core.Domain.Repository.UnityOfWork
 
         private void OnError(Exception ex)
         {
-            DomainEvent.DomainNotify(new DomainNotification("AssertException",
+            AddNotification(new DomainNotification("AssertException",
                  ex.InnerException != null ? ex.InnerException.Message : ex.Message
             ));
         }

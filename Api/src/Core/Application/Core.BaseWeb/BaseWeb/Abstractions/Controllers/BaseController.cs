@@ -9,10 +9,10 @@ namespace Core.BaseWeb.Controllers.Abstractions
   public abstract class BaseController : Controller
   {
 
-    private IDomainNotificationHandler<DomainNotification> _domainNotification;
+    private IDomainNotificationContext<DomainNotification> _domainNotification;
 
 
-    public BaseController(IDomainNotificationHandler<DomainNotification> domainNotification)
+    public BaseController(IDomainNotificationContext<DomainNotification> domainNotification)
     {
       _domainNotification = domainNotification;
     }

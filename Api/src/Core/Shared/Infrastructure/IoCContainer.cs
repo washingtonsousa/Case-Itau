@@ -1,13 +1,12 @@
-using AutoMapper;
 using Core.Application;
 using Core.Application.Interfaces;
 using Core.Data.EF.Context;
+using Core.Data.Repository;
+using Core.Data.UnityOfWork;
 using Core.Domain.Factories;
-using Core.Domain.Interfaces;
 using Core.Domain.Interfaces.Concrete.Factories;
-using Core.Domain.Repository;
+using Core.Domain.Interfaces.Concrete.Repository;
 using Core.Domain.Repository.Interfaces;
-using Core.Domain.Repository.UnityOfWork;
 using Core.Shared.Kernel.Events;
 using Core.Shared.Kernel.Handles;
 using Core.Shared.Kernel.Interfaces;
@@ -25,8 +24,6 @@ namespace Core.Infrastructure
             InjectScoped(services);
             InjectDataRepositories(services);
             InjectApplicationServices(services);
-            InjectDomainServices(services);
-            InjectDomainSpecifications(services);
             InjectScoped(services);
             InjectDataRepositories(services);
             InjectExtensions(services);
@@ -35,18 +32,15 @@ namespace Core.Infrastructure
 
         public static void InjectScoped(this IServiceCollection services)
         {
-            services.AddScoped<DatabaseContext, DatabaseContext>();
+            services.AddScoped<DatabaseContext>();
             services.AddScoped<IUnityOfWork, UnityOfWork>();
-            services.AddScoped<IDomainNotificationHandler<DomainNotification>, DomainNotificationHandler>();
+            services.AddScoped<IDomainNotificationContext<DomainNotification>, DomainNotificationContext>();
         }
 
         public static void InjectDataRepositories(this IServiceCollection services)
         {
-
-        }
-
-        public static void InjectDomainSpecifications(this IServiceCollection services)
-        {
+            services.AddTransient<IEstadoRepository, EstadoRepository>();
+            services.AddTransient<ICampeonatoRepository, CampeonatoRepository>();
         }
 
         public static void InjectDomainFactories(this IServiceCollection services)
@@ -59,28 +53,18 @@ namespace Core.Infrastructure
             services.AddTransient<IImportDataAppService, ImportDataAppService>();
         }
 
-        public static void InjectDomainServices(this IServiceCollection services)
-        {
-        }
-
         public static void InjectExtensions(this IServiceCollection services)
-        {
-            services.AddScoped<IDomainEventContainer, DomainEvent>();
-            services.AddSingleton(services.BuildServiceProvider());
+        {           
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-
         }
 
-        public static IServiceProvider BuildAppServiceProvider(this IServiceCollection services)
-        {
-
-            IServiceProvider provider = services.BuildServiceProvider();
-
-            services.AddSingleton(provider);
-
-            return provider;
-
-        }
+        //public static IServiceProvider BuildAppServiceProvider(this IServiceCollection services)
+        //{ 
+        //    IServiceProvider provider = services.BuildServiceProvider();
+        //    services.AddSingleton(provider);
+        //    DomainEvent.ServiceProvider = provider;
+        //    return provider;
+        //}
 
     }
 }

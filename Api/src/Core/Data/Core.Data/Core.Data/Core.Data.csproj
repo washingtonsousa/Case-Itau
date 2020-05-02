@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200330010617_addColumnIcone.cs" />
-    <Compile Remove="Migrations\20200330010617_addColumnIcone.Designer.cs" />
+    <Compile Remove="Migrations\20200502013916_initDatabaseModels.cs" />
+    <Compile Remove="Migrations\20200502013916_initDatabaseModels.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Domain\Core.Domain\Core.Domain.csproj" />
     <ProjectReference Include="..\..\..\Shared\Data\Core.Shared.Data\Core.Shared.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

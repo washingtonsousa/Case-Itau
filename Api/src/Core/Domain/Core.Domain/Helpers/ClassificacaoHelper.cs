@@ -25,8 +25,7 @@ namespace Core.Domain.Helpers
             if (strArrColumnsNumber > classificacaoColumnsNumber)
             {
                 int columnsNumberDiference = strArrColumnsNumber - classificacaoColumnsNumber;
-                nomeTime += string.Join(" ", queryFromArr.Skip((int)ColumnClassificacaoIndex.TIME + 1).Take(columnsNumberDiference));
-                
+                nomeTime += $@" {string.Join(" ", queryFromArr.Skip((int)ColumnClassificacaoIndex.TIME + 1).Take(columnsNumberDiference))}";                
                 queryFromArr.RemoveRange(((int)ColumnClassificacaoIndex.TIME + 1), columnsNumberDiference);
             }
 

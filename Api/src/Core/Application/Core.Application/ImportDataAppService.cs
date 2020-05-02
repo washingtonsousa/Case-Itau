@@ -1,44 +1,69 @@
 ﻿using Core.Application.Abstractions;
 using Core.Application.Interfaces;
+using Core.Domain.Command;
 using Core.Domain.Entities.Concrete.Database;
 using Core.Domain.Entities.Concrete.Files;
 using Core.Domain.Facade;
 using Core.Domain.Interfaces.Concrete.Factories;
+using Core.Domain.Interfaces.Concrete.Repository;
+using Core.Domain.Queries;
 using Core.Domain.Repository.Interfaces;
 using Core.Shared.Data;
+using Core.Shared.Kernel.Events;
+using Core.Shared.Kernel.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.Application
 {
     public class ImportDataAppService : ApplicationService, IImportDataAppService
     {
-        public ImportDataAppService(IUnityOfWork unityOfWork, IClassificacaoFactory classificacaoFactory) : base(unityOfWork)
+        public ImportDataAppService(IUnityOfWork unityOfWork, 
+            IEstadoRepository estadoRepository, 
+            IClassificacaoFactory classificacaoFactory, 
+            ICampeonatoRepository campeonatoRepository) : base(unityOfWork)
         {
             _classificacaoFactory = classificacaoFactory;
+            _estadoRepository = estadoRepository;
+            _campeonatoRepository = campeonatoRepository;
         }
 
-        public IClassificacaoFactory _classificacaoFactory { get; private set; }
+        private  IClassificacaoFactory _classificacaoFactory { get; }
+        private  IEstadoRepository _estadoRepository { get; }
+        private  ICampeonatoRepository _campeonatoRepository { get; }
+        private IList<Classificacao> classificacaoList;
 
-        public void ExecuteDataImport()
+        public async Task ExecuteDataImport()
         {
 
-            IList<Classificacao> classificacaoList = _classificacaoFactory.CreateClassificacaoListFromFile(Constants.DEFAULT_ETL_FILE_NAME);
+            classificacaoList = _classificacaoFactory.CreateClassificacaoListFromFile(Constants.DEFAULT_ETL_FILE_NAME);
 
-            IList<Estado> estados = classificacaoList
-                .GroupBy(c => c.Estado)
-                .Select(c => new Estado(c.Key)).ToList();
+            var estados = classificacaoList.GetEstados();
+            var campeonatos = classificacaoList.GetCampeonatos();
 
-            IList<Time> times = classificacaoList
-               .GroupBy(c => c.Time)
-               .Select(c => new Time(c.Key)).ToList();
+            foreach(var estado in estados)
+             estado.AddTimes(classificacaoList.GetTimesByEstado(estado.UF));
 
-            IList<Brasileirao> anos = classificacaoList
-               .GroupBy(c => c.Ano)
-               .Select(c => new Brasileirao(c.Key)).ToList();
+            await _estadoRepository.AddRange(estados);
 
+            foreach(var classificacao in classificacaoList)
+            {
 
+                var estado = estados.FirstOrDefault(e => e.UF == classificacao.Estado);
+                var time = estado.Times.FirstOrDefault(t => classificacao.Time == t.Nome);
+                var campeonato = campeonatos.FirstOrDefault(e => e.Ano == classificacao.Ano);
+
+                campeonato.AddPosicao(new Posicao(time, campeonato, classificacao.Pontos, classificacao.Jogos, classificacao.Vitorias,
+                                        classificacao.Empates, classificacao.Derrotas, classificacao.GolsPro, classificacao.GolsContra, 
+                                        classificacao.Posicao));
+
+            }
+
+            await _campeonatoRepository.AddRange(campeonatos);
+
+            await _unityOfWork.CommitAsync();
 
         }
 

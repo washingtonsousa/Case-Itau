@@ -5,14 +5,15 @@ using Core.Shared.Data;
 using Core.Shared.Kernel.Abstractions;
 using Core.Shared.Kernel.Events;
 using System;
+using System.Collections.Generic;
 
 namespace Core.Domain.Entities.Concrete.Files
 {
-    public class Classificacao : Notifiable
+    public class Classificacao
     {
 
-
-        private Classificacao(int ano, string time, string estado, int pontos, int jogos, int vitorias, int empates, int derrotas, int golsPro, int golsContra)
+        private Classificacao(int posicao, int ano, string time, 
+            string estado, int pontos, int jogos, int vitorias, int empates, int derrotas, int golsPro, int golsContra)
         {
             Ano = ano;
             Time = time;
@@ -24,7 +25,9 @@ namespace Core.Domain.Entities.Concrete.Files
             Derrotas = derrotas;
             GolsPro = golsPro;
             GolsContra = golsContra;
+            Posicao = posicao;
         }
+
 
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace Core.Domain.Entities.Concrete.Files
                 var columnsList = line.Split(Constants.DEFAULT_ETL_COLUMN_SEPARATOR).PrepareTimeColumnForClassificacao();
                 
                 return new Classificacao(
+                     int.Parse(columnsList[(int)ColumnClassificacaoIndex.POSICAO].Trim()),
                     ano,
                     columnsList[(int)ColumnClassificacaoIndex.TIME].Trim(),
                     columnsList[(int)ColumnClassificacaoIndex.ESTADO].Trim(),
@@ -58,6 +62,7 @@ namespace Core.Domain.Entities.Concrete.Files
         public int Ano { get; set; }
         public string Time  { get; set; }
         public string Estado { get; set; }
+        public int Posicao { get; set; }
         public int Pontos { get; set; }
         public int Jogos { get; set; }
         public int Vitorias { get; set; }

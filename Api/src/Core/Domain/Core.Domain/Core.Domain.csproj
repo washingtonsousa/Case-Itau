@@ -15,11 +15,8 @@
 
   <ItemGroup>
     <Folder Include="Builders\" />
-    <Folder Include="Interfaces\Concrete\Repository\" />
-    <Folder Include="Interfaces\Concrete\Services\" />
-    <Folder Include="Singleton\" />
+    <Folder Include="Repositories\" />
     <Folder Include="Specification\" />
-    <Folder Include="ValueObjects\" />
   </ItemGroup>
 
 </Project>

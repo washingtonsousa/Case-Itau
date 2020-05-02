@@ -1,7 +1,9 @@
-﻿namespace Core.Application.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace Core.Application.Interfaces
 {
     public interface IImportDataAppService
     {
-        void ExecuteDataImport();
+        Task ExecuteDataImport();
     }
 }

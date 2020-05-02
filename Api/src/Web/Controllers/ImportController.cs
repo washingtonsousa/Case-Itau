@@ -16,7 +16,7 @@ namespace Itau.Case.Brasileirao.Web.Web.Controllers
 
         private IImportDataAppService _importDataAppService;
 
-        public ImportController(IDomainNotificationHandler<DomainNotification> domainNotification, IImportDataAppService importDataAppService) : base(domainNotification)
+        public ImportController(IDomainNotificationContext<DomainNotification> domainNotification, IImportDataAppService importDataAppService) : base(domainNotification)
         {
             _importDataAppService = importDataAppService;
         }
@@ -27,9 +27,9 @@ namespace Itau.Case.Brasileirao.Web.Web.Controllers
         public IActionResult ExecuteImport()
         {
 
-            _importDataAppService.ExecuteDataImport();
-
+            _importDataAppService.ExecuteDataImport().GetAwaiter().GetResult();
             return ResponseWithAllNotifications();
+
         }
     }
 }

@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Core.Domain.Entities.Concrete.Database
 {
     public class Estado
     {
-        public Estado(string uF)
-        {
+       public Estado(string uF)
+       {
             UF = uF;
-        }
+       }
 
-        public string UF { get; set; }
+       public string UF { get; private set; }
+       public int Id { get; private set; } 
+       public IList<Time> Times { get; private set; } 
 
-       [Key]
-       [Required]
-       public int Id { get; set; } 
+       public void AddTimes(IList<Time> times)
+       {
+            Times = times;
+       }
 
     }
 }

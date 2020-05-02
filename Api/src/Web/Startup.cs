@@ -6,16 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Core.Shared.Data;
 using System.Globalization;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Http;
+using Core.Shared.Kernel.Events;
+using System;
 
 namespace Itau.Case.Brasileirao.Web
 {
@@ -57,12 +53,11 @@ namespace Itau.Case.Brasileirao.Web
       services.AddSingleton(Configuration);
       services.AddAutoMapper(typeof(Startup));
       services.InjectAll();
-      services.BuildAppServiceProvider();
 
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider sp)
     {
 
       var cultureInfo = new CultureInfo("pt-BR");
@@ -87,7 +82,6 @@ namespace Itau.Case.Brasileirao.Web
 
       app.UseHttpsRedirection();
       app.UseRouting();
-        
       app.UseEndpoints(end =>
       {
         end.MapControllers();

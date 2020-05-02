@@ -7,6 +7,7 @@ namespace Core.Domain.Repository.Interfaces
 
     void Commit();
     Task CommitAsync();
+    bool Invalid { get; }
 
   }
 }

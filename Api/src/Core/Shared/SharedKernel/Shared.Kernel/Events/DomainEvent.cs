@@ -4,41 +4,41 @@ using System;
 
 namespace Core.Shared.Kernel.Events
 {
-  public class DomainEvent : IDomainEventContainer
-  {
-    private static IServiceProvider _serviceProvider;
-
-    public DomainEvent(IServiceProvider serviceProvider)
+    public class DomainEvent 
     {
-      _serviceProvider = serviceProvider;
-    }
+        public IServiceProvider ServiceProvider;
 
-    public void Raise<T>(T args) where T : IDomainEvent
-    {
-      if (_serviceProvider != null)
-      {
-        foreach (var handler in _serviceProvider.GetServices<IHandler<T>>())
-          ((IHandler<T>)handler).Handle(args);
-      }
-    }
+        public DomainEvent(IServiceProvider serviceProvider)
+        {
+            ServiceProvider = serviceProvider;
+        }
 
-    public void Notify<T>(T args) where T : IDomainEvent
-    {
-      if (_serviceProvider != null)
-      {
-        foreach (var handler in _serviceProvider.GetServices<IDomainNotificationHandler<T>>())
-          handler.Handle(args);
-      }
-    }
+        public void Raise<T>(T args) where T : IDomainEvent
+        {
+            if (ServiceProvider != null)
+            {
+                foreach (var handler in ServiceProvider.GetServices<IHandler<T>>())
+                    ((IHandler<T>)handler).Handle(args);
+            }
+        }
+
+        //public void Notify<T>(T args) where T : IDomainEvent
+        //{
+        //    if (ServiceProvider != null)
+        //    {
+        //        foreach (var handler in ServiceProvider.GetServices<IDomainNotificationContext<T>>())
+        //            handler.Handle(args);
+        //    }
+        //}
 
 
-    public static void DomainNotify(DomainNotification args)
-    {
-      if (_serviceProvider != null)
-      {
-        foreach (var handler in _serviceProvider.GetServices<IDomainNotificationHandler<DomainNotification>>())
-          handler.Handle(args);
-      }
+        //public void DomainNotify(DomainNotification args)
+        //{
+        //    if (ServiceProvider != null)
+        //    {
+        //        foreach (var handler in ServiceProvider.GetServices<IDomainNotificationContext<DomainNotification>>())
+        //            handler.Handle(args);
+        //    }
+        //}
     }
-  }
 }
