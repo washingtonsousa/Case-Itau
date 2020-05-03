@@ -1,8 +1,8 @@
 # Case Itaú Estatísticas do Brasileirão
 
-Projeto desenvolvido com Web API .Net Core 3 e MySQL 8 (MariaDb)
+## Projeto desenvolvido com Web API .Net Core 3 e MySQL 8 (MariaDb)
 
-Iniciando aplicação
+### Iniciando aplicação
 
 Antes de obter os dados você precisa primeiro configurar a conexão com banco de dados, para isso abra a solution dentro da pasta API e dentro do projeto Web altere o arquivo appsettings.json na sessão de Connection Strings.
 
