@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "6ab8f62d-2c35-4395-b8b7-026981af1fae",
+		"name": "CaseItau",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Importação de dados",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44313/v1/api/importacao",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"v1",
+						"api",
+						"importacao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estatísticas por Time",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44313/v1/api/estatisticas/time",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"v1",
+						"api",
+						"estatisticas",
+						"time"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estatísticas por Time filtrado pelo nome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44313/v1/api/estatisticas/time/CORINTHIANS",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"v1",
+						"api",
+						"estatisticas",
+						"time",
+						"CORINTHIANS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estatísticas por Estado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44313/v1/api/estatisticas/estado",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"v1",
+						"api",
+						"estatisticas",
+						"estado"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Estatísticas Resultado Geral",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44313/v1/api/estatisticas/resultado-geral",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44313",
+					"path": [
+						"v1",
+						"api",
+						"estatisticas",
+						"resultado-geral"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
