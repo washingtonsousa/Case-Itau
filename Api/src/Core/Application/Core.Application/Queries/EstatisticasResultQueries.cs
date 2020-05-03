@@ -29,7 +29,7 @@ namespace Application.Queries
         }
 
 
-        public static IQueryable<EstatisticasResultadosViewModel> AsEstadoStatisticsResult(this IQueryable<Posicao> query)
+        public static IQueryable<EstatisticasResultadosViewModel> AsEstadoEstatisticasResult(this IQueryable<Posicao> query)
         {
 
             return query.GroupBy(p => p.Time.Estado)

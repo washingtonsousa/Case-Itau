@@ -54,7 +54,7 @@ namespace Application
             if (posicoes.DadosNaoExistem(_assertionConcern))
                 return null;
 
-            return posicoes.AsQueryable().AsEstadoStatisticsResult().ToList();
+            return posicoes.AsQueryable().AsEstadoEstatisticasResult().ToList();
         }
 
         public async Task<EstatisticasResultadosGeraisViewModel> ObterResultadoGeral()
