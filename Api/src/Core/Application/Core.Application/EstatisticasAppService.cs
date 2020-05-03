@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Helper;
 using Application.Interfaces;
 using Application.Queries;
 using Core.BaseWeb.ViewModel;
@@ -23,14 +24,14 @@ namespace Application
         public ITimeRepository _timeRepository { get; }
         public IPosicaoRepository _posicaoRepository { get; }
 
-        public async Task<IList<EstatisticasResultViewModel>> ObterEstatisticasPorTime(string nomeTime)
+        public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime(string nomeTime)
         {
             var posicoes = await _posicaoRepository.ObterLista(nomeTime);
             return posicoes.AsQueryable().AsEstatisticasTimeResult().ToList();
 
         }
 
-        public async Task<IList<EstatisticasResultViewModel>> ObterEstatisticasPorTime()
+        public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime()
         {
             var posicoes = await _posicaoRepository.ObterLista();
 
@@ -38,10 +39,35 @@ namespace Application
 
         }
 
-        public async Task<IList<EstatisticasResultViewModel>> ObterEstatisticasPorEstado()
+        public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorEstado()
         {
             var posicoes = await _posicaoRepository.ObterLista();
             return posicoes.AsQueryable().AsEstadoStatisticsResult().ToList();
         }
+
+        public async Task<EstatisticasResultadosGeraisViewModel> ObterResultadoGeral()
+        {
+            var posicoes = await _posicaoRepository.ObterLista();
+
+            var resultadoArtilharia = posicoes.AsQueryable().AsResultadoArtilharia().RemoveSelfReference();
+            var resultadoDefesa = posicoes.AsQueryable().AsResultadoDefesa().RemoveSelfReference();
+            var resultadoVitorias = posicoes.AsQueryable().AsResultadoVitorias(true).RemoveSelfReference();
+            var resultadoMenorVitorias = posicoes.AsQueryable().AsResultadoVitorias().RemoveSelfReference();
+            var resultadoMaiorMediaVitorias = posicoes.AsQueryable().AsResultadoMediaVitorias(true).RemoveSelfReference();
+            var resultadoMenorMediaVitorias = posicoes.AsQueryable().AsResultadoMediaVitorias().RemoveSelfReference();
+
+            var resultado = new EstatisticasResultadosGeraisViewModel(
+                resultadoArtilharia, 
+                resultadoDefesa, 
+                resultadoVitorias, 
+                resultadoMenorVitorias, 
+                resultadoMaiorMediaVitorias, 
+                resultadoMenorMediaVitorias); 
+
+
+            return resultado;
+        }
+
+         
     }
 }

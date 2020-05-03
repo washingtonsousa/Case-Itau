@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Core.BaseWeb.ViewModel
 {
-    public class EstatisticasResultViewModel
+    public class EstatisticasResultadosViewModel
     {
-        public EstatisticasResultViewModel(int posicao, string nome, int totalPontuacao, int totalCampeonatos,
+        public EstatisticasResultadosViewModel(int posicao, string nome, int totalPontuacao, int totalCampeonatos,
             int totalJogos, int totalVitorias, int totalEmpates, int totalDerrotas, 
             int totalGolsPros, int totalGolsContras)
         {
@@ -39,7 +39,7 @@ namespace Core.BaseWeb.ViewModel
 
             } }
 
-        public EstatisticasResultViewModel SetPosicaoAndReturnItSelf(int posicao)
+        public EstatisticasResultadosViewModel SetPosicaoAndReturnItSelf(int posicao)
         {
             Posicao = posicao;
             return this;

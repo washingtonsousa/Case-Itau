@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Core.Shared.Kernel.Interfaces;
 using Core.Shared.Kernel.Events;
 using Core.Shared.Kernel.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace Core.Data.UnityOfWork
 {
@@ -13,11 +14,13 @@ namespace Core.Data.UnityOfWork
     {
         private DatabaseContext _context;
         public IDomainNotificationContext<DomainNotification> _domainNotificationContext { get; private set; }
+        public ILogger<UnityOfWork> _logger { get; }
 
-        public UnityOfWork(DatabaseContext context, IDomainNotificationContext<DomainNotification> domainNotificationContext)
+        public UnityOfWork(ILogger<UnityOfWork> logger, DatabaseContext context, IDomainNotificationContext<DomainNotification> domainNotificationContext)
         {
             _context = context;
             _domainNotificationContext = domainNotificationContext;
+            _logger = logger;
         }
 
         public bool Commit(bool mandatory = true)
@@ -31,6 +34,8 @@ namespace Core.Data.UnityOfWork
             {
                 if (mandatory)
                     _domainNotificationContext.AddNotification(ex.AsNotification());
+
+                _logger.LogWarning(0, ex, "Ocorreu erro de operação de Dados");
             }
             return false;
         }
@@ -46,6 +51,8 @@ namespace Core.Data.UnityOfWork
             {
                 if (mandatory)
                     _domainNotificationContext.AddNotification(ex.AsNotification());
+
+                _logger.LogWarning(0, ex, "Ocorreu erro de operação de Dados");
             }
             return false;
         }
@@ -67,6 +74,8 @@ namespace Core.Data.UnityOfWork
             {
                 if (mandatory)
                     _domainNotificationContext.AddNotification(ex.AsNotification());
+
+                _logger.LogWarning(0, ex, "Ocorreu erro de migração de Base de Dados");
             }
             return false;
         }
@@ -83,6 +92,8 @@ namespace Core.Data.UnityOfWork
             {
                 if(mandatory)
                 _domainNotificationContext.AddNotification(ex.AsNotification());
+
+                _logger.LogWarning(0, ex, "Ocorreu erro de migração de Base de Dados");
             }
 
             return false;

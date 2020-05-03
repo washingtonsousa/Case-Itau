@@ -28,7 +28,7 @@ namespace Core.Domain.Entities.Concrete.Database
         public int IdEstado { get; private set; }
         public IList<Posicao> Posicoes { get; private set; }
 
-        public void AddPosicoes(IList<Posicao> posicoes)
+        public void SetPosicoes(IList<Posicao> posicoes)
         {
             Posicoes = posicoes;
         }

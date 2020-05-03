@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Core.Domain.Entities.Concrete.Database
 {
@@ -11,12 +12,14 @@ namespace Core.Domain.Entities.Concrete.Database
 
        public string UF { get; private set; }
        public int Id { get; private set; } 
+
        public IList<Time> Times { get; private set; } 
 
-       public void AddTimes(IList<Time> times)
+       public void SetTimes(IList<Time> times)
        {
             Times = times;
        }
+
 
     }
 }

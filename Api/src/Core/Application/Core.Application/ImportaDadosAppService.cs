@@ -58,7 +58,7 @@ namespace Application
             var campeonatos = classificacaoList.AsCampeonatos();
 
             foreach (var estado in estados)
-                estado.AddTimes(classificacaoList.AsTimesPorEstado(estado.UF));
+                estado.SetTimes(classificacaoList.AsTimesPorEstado(estado.UF));
 
             await _estadoRepository.AddRange(estados);
 

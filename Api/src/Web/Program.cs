@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Itau.Case.Brasileirao.Web
 {
@@ -19,6 +20,18 @@ namespace Itau.Case.Brasileirao.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureLogging(logging =>
+                {
+
+
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    logging.AddDebug();
+
+                    /// Apenas um plus =)
+                    logging.AddEventLog();
+                    logging.AddEventSourceLogger();
+
                 });
     }
 }

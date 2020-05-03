@@ -8,8 +8,9 @@ namespace Application.Interfaces
 {
     public interface IEstatisticasAppService
     {
-        Task<IList<EstatisticasResultViewModel>> ObterEstatisticasPorTime(string nome);
-        Task<IList<EstatisticasResultViewModel>> ObterEstatisticasPorTime();
-        Task<IList<EstatisticasResultViewModel>> ObterEstatisticasPorEstado();
+        Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime(string nome);
+        Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime();
+        Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorEstado();
+        Task<EstatisticasResultadosGeraisViewModel> ObterResultadoGeral();
     }
 }

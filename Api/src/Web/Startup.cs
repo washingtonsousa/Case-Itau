@@ -10,8 +10,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Core.Shared.Data;
 using System.Globalization;
-using Core.Shared.Kernel.Events;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace Itau.Case.Brasileirao.Web
 {
@@ -57,7 +57,7 @@ namespace Itau.Case.Brasileirao.Web
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider sp)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider sp, ILoggerFactory loggerFactory)
     {
 
       var cultureInfo = new CultureInfo("pt-BR");

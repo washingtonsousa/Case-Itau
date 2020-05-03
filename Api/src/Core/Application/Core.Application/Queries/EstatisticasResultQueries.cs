@@ -1,4 +1,5 @@
 ﻿using Core.BaseWeb.ViewModel;
+using Core.BaseWeb.ViewModel.ValueObject;
 using Core.Domain.Entities.Concrete.Database;
 
 using System.Linq;
@@ -9,12 +10,12 @@ namespace Application.Queries
     {
 
 
-        public static IQueryable<EstatisticasResultViewModel> AsEstatisticasTimeResult(this IQueryable<Posicao> query)
+        public static IQueryable<EstatisticasResultadosViewModel> AsEstatisticasTimeResult(this IQueryable<Posicao> query)
         {
 
             return query.GroupBy(p => p.Time)
            .Select((p) =>
-            new EstatisticasResultViewModel(0, p.Key.Nome,
+            new EstatisticasResultadosViewModel(0, p.Key.Nome,
             p.Sum(x => x.Pontos),
             p.Key.Posicoes.GroupBy(c => c.Campeonato).Count(),
             p.Sum(x => x.Jogos),
@@ -28,16 +29,16 @@ namespace Application.Queries
         }
 
 
-        public static IQueryable<EstatisticasResultViewModel> AsEstadoStatisticsResult(this IQueryable<Posicao> query)
+        public static IQueryable<EstatisticasResultadosViewModel> AsEstadoStatisticsResult(this IQueryable<Posicao> query)
         {
 
             return query.GroupBy(p => p.Time.Estado)
 
            .Select((p) =>
-            new EstatisticasResultViewModel(0, p.Key.UF,
+            new EstatisticasResultadosViewModel(0, p.Key.UF,
             p.Sum(x => x.Pontos),
             ///Obtem o numero de ocorrencias do estado agrupados pelo campeonato
-            p.Where(x =>  p.Key.Times.Any(time => time.Posicoes.Any(pe => pe.Campeonato.Id == x.Campeonato.Id)))
+            p.Where(x => p.Key.Times.Any(time => time.Posicoes.Any(pe => pe.Campeonato.Id == x.Campeonato.Id)))
             .GroupBy(group => group.Campeonato).Count(),
             p.Sum(x => x.Jogos),
             p.Sum(x => x.Vitorias),
@@ -49,7 +50,7 @@ namespace Application.Queries
             .Select((p, index) => p.SetPosicaoAndReturnItSelf(index + 1));
         }
 
-        public static IQueryable<EstatisticasResultViewModel> AsOrdemPadraoEstatisticas(this IQueryable<EstatisticasResultViewModel> query)
+        public static IQueryable<EstatisticasResultadosViewModel> AsOrdemPadraoEstatisticas(this IQueryable<EstatisticasResultadosViewModel> query)
         {
 
             return query
@@ -57,6 +58,62 @@ namespace Application.Queries
             .ThenByDescending(p => p.Vitorias)
             .ThenByDescending(p => p.SaldoGols)
             .Select((p, index) => p.SetPosicaoAndReturnItSelf(index + 1));
+        }
+
+
+        public static TimeResultado AsResultadoArtilharia(this IQueryable<Posicao> query)
+        {
+
+            var resultQuery = query.GroupBy(p => new { p.Time })
+                .Select(
+                e =>
+                 new TimeResultado(e.Key.Time, e.Sum(e => (e.GolsPro / e.Jogos))))
+               .OrderByDescending(t => t.Valor).AsQueryable();
+
+            return resultQuery.FirstOrDefault();
+        }
+
+        public static TimeResultado AsResultadoDefesa(this IQueryable<Posicao> query)
+        {
+            var resultQuery = query.GroupBy(p => new { p.Time })
+                .Select(
+                e =>
+                 new TimeResultado(e.Key.Time, e.Sum(e => (e.GolsContra / e.Jogos)))).OrderBy(t => t.Valor).AsQueryable()
+               .OrderBy(t => t.Valor).AsQueryable();
+
+
+            return resultQuery.FirstOrDefault();
+        }
+
+        public static TimeResultado AsResultadoVitorias(this IQueryable<Posicao> query, bool decrescente = false)
+        {
+            var resultQuery = query.GroupBy(p => new { p.Time })
+                .Select(
+                e =>
+                 new TimeResultado(e.Key.Time, e.Sum(e => e.Vitorias)))
+                .OrderBy(t => t.Valor)
+                .AsQueryable();
+
+            if (decrescente)
+                resultQuery = resultQuery.OrderByDescending(t => t.Valor).AsQueryable();
+
+
+            return resultQuery.FirstOrDefault();
+        }
+
+        public static TimeResultado AsResultadoMediaVitorias(this IQueryable<Posicao> query, bool decrescente = false)
+        {
+            var resultQuery = query.GroupBy(p => new { p.Time})
+                .Select(
+                e =>
+                 new TimeResultado(e.Key.Time, e.Sum(e => e.Vitorias) / query.GroupBy(p => p.Campeonato).Count()))
+                .OrderBy(t => t.Valor).AsQueryable();
+
+            if (decrescente)
+                resultQuery = resultQuery.OrderByDescending(t => t.Valor).AsQueryable();
+
+
+            return resultQuery.FirstOrDefault();
         }
     }
 }
