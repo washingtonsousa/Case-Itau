@@ -5,6 +5,7 @@ using Application.Queries;
 using Core.BaseWeb.ViewModel;
 using Core.Domain.Interfaces.Concrete.Repository;
 using Core.Domain.Repository.Interfaces;
+using Core.Domain.Specification;
 using Core.Shared.Kernel.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,10 @@ namespace Application
         public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime(string nomeTime)
         {
             var posicoes = await _posicaoRepository.ObterLista(nomeTime);
+
+            if (posicoes.TimeNaoEncontradoNasPosicoes(_assertionConcern))
+                return null;
+
             return posicoes.AsQueryable().AsEstatisticasTimeResult().ToList();
 
         }
@@ -35,6 +40,9 @@ namespace Application
         {
             var posicoes = await _posicaoRepository.ObterLista();
 
+            if (posicoes.DadosNaoExistem(_assertionConcern))
+                return null;
+
             return posicoes.AsQueryable().AsEstatisticasTimeResult().ToList();
 
         }
@@ -42,12 +50,19 @@ namespace Application
         public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorEstado()
         {
             var posicoes = await _posicaoRepository.ObterLista();
+
+            if (posicoes.DadosNaoExistem(_assertionConcern))
+                return null;
+
             return posicoes.AsQueryable().AsEstadoStatisticsResult().ToList();
         }
 
         public async Task<EstatisticasResultadosGeraisViewModel> ObterResultadoGeral()
         {
             var posicoes = await _posicaoRepository.ObterLista();
+
+            if (posicoes.DadosNaoExistem(_assertionConcern))
+                return null;
 
             var resultadoArtilharia = posicoes.AsQueryable().AsResultadoArtilharia().RemoveSelfReference();
             var resultadoDefesa = posicoes.AsQueryable().AsResultadoDefesa().RemoveSelfReference();

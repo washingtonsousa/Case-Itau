@@ -5,6 +5,7 @@ using Core.Shared.Kernel.Abstractions;
 using Core.Shared.Kernel.Events;
 using Core.Shared.Kernel.Helpers;
 using Core.Shared.Kernel.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,14 @@ namespace Core.Domain.Factories
     public class ClassificacaoFactory : IClassificacaoFactory
     {
 
-        public ClassificacaoFactory(IDomainNotificationContext<DomainNotification> domainNotificationContext)
+        public ClassificacaoFactory(ILogger<ClassificacaoFactory> logger, IDomainNotificationContext<DomainNotification> domainNotificationContext)
         {
             _domainNotificationContext = domainNotificationContext;
+            _logger = logger;
         }
 
         private IDomainNotificationContext<DomainNotification> _domainNotificationContext { get; }
+        public ILogger<ClassificacaoFactory> _logger { get; }
 
         /// <summary>
         /// Executa um processo de extração de dados de um arquivo de texto em memória para o tipo Classificacao a partir de um arquivo
@@ -30,6 +33,8 @@ namespace Core.Domain.Factories
         public IList<Classificacao> CreateClassificacaoListFromFile(string fileName)
         {
             IList<Classificacao> classificacaoList = new List<Classificacao>();
+
+            _logger.LogInformation(1002, "Iniciando processo de importação de dados de arquivo para a memória");
 
             try
             {
@@ -54,6 +59,7 @@ namespace Core.Domain.Factories
             {
 
                 _domainNotificationContext.AddNotification(ex.AsNotification());
+                _logger.LogError(0, ex, "Ocorreu erro crítico durante tentativa de alocação de dados de arquivo para memória");
             }
 
             return classificacaoList;
