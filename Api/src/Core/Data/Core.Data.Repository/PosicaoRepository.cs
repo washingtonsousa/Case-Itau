@@ -17,7 +17,7 @@ namespace Core.Domain.Repository
         {
         }
 
-        public async Task<Posicao> Get(string nomeTime = null)
+        public async Task<Posicao> Obter(string nomeTime = null)
         {
             var query = _context.Posicoes.AsQueryable().AsFullJoin().AsDefaultQuery(nomeTime);
 

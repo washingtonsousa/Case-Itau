@@ -16,13 +16,11 @@ namespace Application
     public class EstatisticasAppService : ApplicationService, IEstatisticasAppService
     {
         public EstatisticasAppService(IUnityOfWork unityOfWork, IAssertionConcern assertionConcern,
-            ITimeRepository timeRepository, IPosicaoRepository posicaoRepository) : base(unityOfWork, assertionConcern)
+          IPosicaoRepository posicaoRepository) : base(unityOfWork, assertionConcern)
         {
-            _timeRepository = timeRepository;
             _posicaoRepository = posicaoRepository;
         }
 
-        public ITimeRepository _timeRepository { get; }
         public IPosicaoRepository _posicaoRepository { get; }
 
         public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime(string nomeTime)

@@ -10,7 +10,7 @@ namespace Core.Domain.Interfaces.Concrete.Repository
     {
 
         Task<IList<Posicao>> ObterLista(string nomeTime = null);
-        Task<Posicao> Get(string nomeTime = null);
+        Task<Posicao> Obter(string nomeTime = null);
 
     }
 }
