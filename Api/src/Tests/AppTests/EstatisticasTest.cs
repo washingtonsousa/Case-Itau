@@ -2,7 +2,7 @@ using Xunit;
 
 namespace AppTests
 {
-    public class DataImportTest
+    public class EstatisticasTest
     {
         [Fact]
         public void Test1()
