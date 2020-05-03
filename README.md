@@ -20,10 +20,10 @@ Após iniciar a aplicação realize a importação de dados executando a Request
 
 Para obter os resultados a partir daqui é bem simples utilize as demais requests da collection, são destas os endpoints:
 
-GET v1/api/estatisticas/resultado-geral >>>>> Obtém resultado geral da sessão Info Complementares
-GET v1/api/estatisticas/estado >>>>> Obtém estatísticas por estado
-GET v1/api/estatisticas/time/{{Nome do Time}}  >>>>> Obtém estatísticas por time e filtra pelo time selecionado
-GET v1/api/estatisticas/time >>>>> Obtém estatísticas por time
+### GET v1/api/estatisticas/resultado-geral >>>>> Obtém resultado geral da sessão Info Complementares  
+### GET v1/api/estatisticas/estado >>>>> Obtém estatísticas por estado  
+### GET v1/api/estatisticas/time/{{Nome do Time}}  >>>>> Obtém estatísticas por time e filtra pelo time selecionado  
+### GET v1/api/estatisticas/time >>>>> Obtém estatísticas por time  
 
 Caso tudo esteja certo os resultados serão obtidos conforme executar os endpoints.
 
