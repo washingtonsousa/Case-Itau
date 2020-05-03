@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-namespace Core.Application.Interfaces
+namespace Application.Interfaces
 {
     public interface IImportDataAppService
     {
-        Task ExecuteDataImport();
+        Task ExecutarImportacaoDeDados();
     }
 }

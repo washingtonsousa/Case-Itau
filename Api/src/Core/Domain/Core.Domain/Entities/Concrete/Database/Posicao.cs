@@ -7,12 +7,19 @@ namespace Core.Domain.Entities.Concrete.Database
 {
     public class Posicao
     {
-        public Posicao(Time time, Campeonato brasileirao)
-        {
-            Time = time;
-            Campeonato = brasileirao;
-        }
-
+        /// <summary>
+        /// Instancia um novo objeto do tipo posicao obedecendo as especificações de parametros obrigatórias, porém já adicionando novos objetos de time e campeonato para o Entity Framework
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="brasileirao"></param>
+        /// <param name="pontos"></param>
+        /// <param name="jogos"></param>
+        /// <param name="vitorias"></param>
+        /// <param name="empates"></param>
+        /// <param name="derrotas"></param>
+        /// <param name="golsPro"></param>
+        /// <param name="golsContra"></param>
+        /// <param name="posicaoValue"></param>
         public Posicao(Time time, 
             Campeonato brasileirao, 
             int pontos, 
@@ -36,6 +43,19 @@ namespace Core.Domain.Entities.Concrete.Database
             PosicaoValue = posicaoValue;
         }
 
+        /// <summary>
+        /// Instancia um novo objeto do tipo posicao obedecendo as especificações de parametros obrigatórias
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="brasileirao"></param>
+        /// <param name="pontos"></param>
+        /// <param name="jogos"></param>
+        /// <param name="vitorias"></param>
+        /// <param name="empates"></param>
+        /// <param name="derrotas"></param>
+        /// <param name="golsPro"></param>
+        /// <param name="golsContra"></param>
+        /// <param name="posicaoValue"></param>
         public Posicao(int idTime, int idCampeonato, int pontos, int jogos, int vitorias, int empates, int derrotas, int golsPro, int golsContra, int posicaoValue)
         {
             Pontos = pontos;

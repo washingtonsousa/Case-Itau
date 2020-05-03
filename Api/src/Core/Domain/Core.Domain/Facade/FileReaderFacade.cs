@@ -22,7 +22,7 @@ namespace Core.Domain.Facade
         /// <param name="fileName">Nome do arquivo</param>
         /// <param name="columnSeparator">Separador de coluna</param>
         /// <returns></returns>
-        public static IList<string> GetStringListFromFile(string fileName, string columnSeparator = ";")
+        public static IList<string> ObterListaDeStringPorArquivoDeTexto(string fileName, string columnSeparator = ";")
         {
             IList<string> stringList = new List<string>();
 

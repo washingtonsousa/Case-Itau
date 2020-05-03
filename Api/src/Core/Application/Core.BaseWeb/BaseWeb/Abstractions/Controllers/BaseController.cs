@@ -6,62 +6,51 @@ using System.Collections.Generic;
 
 namespace Core.BaseWeb.Controllers.Abstractions
 {
-  public abstract class BaseController : Controller
-  {
-
-    private IDomainNotificationContext<DomainNotification> _domainNotification;
-
-
-    public BaseController(IDomainNotificationContext<DomainNotification> domainNotification)
-    {
-      _domainNotification = domainNotification;
-    }
-
-
-    protected IActionResult ResponseWithFirstNotification()
+    public abstract class BaseController : Controller
     {
 
-      if(_domainNotification.HasNotifications())
-      {
-        return BadRequest(_domainNotification.GetFirstNotification());
-      }
+        private IDomainNotificationContext<DomainNotification> _domainNotification;
 
-      return Ok();
 
+        public BaseController(IDomainNotificationContext<DomainNotification> domainNotification)
+        {
+            _domainNotification = domainNotification;
+        }
+
+        protected IActionResult ResponseWithFirstNotification<T>(T args, string Message = "") where T : new()
+        {
+
+            var response = new ResponseViewModel();
+
+            if (_domainNotification.HasNotifications())
+            {
+                response.DefaultMessage(_domainNotification.GetFirstNotification());
+
+                return BadRequest(response);
+            }
+
+
+            response.DefaultMessage(Message, args);
+
+            return Ok(response);
+
+        }
+
+
+        protected IActionResult ResponseWithAllNotifications(string Message, object result = null)
+        {
+
+            var response = new ResponseViewModel();
+            response._result = result;
+            response.DefaultMessage(Message, result);
+
+            if (_domainNotification.HasNotifications())
+            {
+                return BadRequest(_domainNotification.Notify());
+            }
+
+            return Ok(response);
+
+        }
     }
-
-
-    protected IActionResult ResponseWithFirstNotification<T>(T args, string Message = "")  where T : new()
-    {
-
-      var response = new ResponseViewModel();
-
-      if (_domainNotification.HasNotifications())
-      {
-        response.DefaultMessage(_domainNotification.GetFirstNotification());
-
-        return BadRequest(response); 
-      }
-
-      
-      response.DefaultMessage(Message, args);
-
-      return Ok(response);
-
-    }
-
-
-    protected IActionResult ResponseWithAllNotifications()
-    {
-
-      if (_domainNotification.HasNotifications())
-      {
-        return BadRequest(_domainNotification.Notify());
-      }
-
-      return Ok();
-
-    }
-
-  }
 }

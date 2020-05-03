@@ -7,31 +7,33 @@ using System.Text.RegularExpressions;
 
 namespace Core.Shared.Kernel.Events
 {
-    public class AssertionConcern
+    public class AssertionConcern : IAssertionConcern
     {
-        public AssertionConcern()
-        {
+        public IDomainNotificationContext<DomainNotification> _domainNotificationContext { get; }
 
+        public AssertionConcern(IDomainNotificationContext<DomainNotification> domainNotificationContext)
+        {
+            _domainNotificationContext = domainNotificationContext;
         }
 
-        public static bool IsSatisfiedBy(params DomainNotification[] validations)
+        public  bool IsSatisfiedBy(params DomainNotification[] validations)
         {
             var notificationsNotNull = validations.Where(validation => validation != null);
 
-            //NotifyAll(notificationsNotNull);
+            NotifyAll(notificationsNotNull);
 
             return notificationsNotNull.Count().Equals(0);
         }
 
-        //private static void NotifyAll(IEnumerable<DomainNotification> notificationsNotNull)
-        //{
-        //    notificationsNotNull.ToList().ForEach(validation =>
-        //    {
-        //        //DomainEvent.DomainNotify(validation);
-        //    });
-        //}
+        private void NotifyAll(IEnumerable<DomainNotification> notificationsNotNull)
+        {
+            notificationsNotNull.ToList().ForEach(validation =>
+           {
+               _domainNotificationContext.AddNotification(validation);
+           });
+        }
 
-        public static DomainNotification AssertLength(string stringValue, int minimum, int maximum, string message, string key = "AssertArgumentLength")
+        public  DomainNotification AssertLength(string stringValue, int minimum, int maximum, string message, string key = "AssertArgumentLength")
         {
             int length = stringValue.Trim().Length;
 
@@ -40,14 +42,14 @@ namespace Core.Shared.Kernel.Events
                 : null;
         }
 
-        public static DomainNotification AssertListLength<T>(IEnumerable<T> list, int minimum, string message, string key = "AssertArgumentLength", RankNotification rank = RankNotification.Low)
+        public  DomainNotification AssertListLength<T>(IEnumerable<T> list, int minimum, string message, string key = "AssertArgumentLength", RankNotification rank = RankNotification.Low)
         {
             return (list == null || list.Count() <= minimum)
                 ? new DomainNotification(key, message, rank)
                 : null;
         }
 
-        public static DomainNotification AssertMatches(string pattern, string stringValue, string message, string key = "AssertArgumentLength")
+        public  DomainNotification AssertMatches(string pattern, string stringValue, string message, string key = "AssertArgumentLength")
         {
             Regex regex = new Regex(pattern);
 
@@ -56,35 +58,35 @@ namespace Core.Shared.Kernel.Events
                 : null;
         }
 
-        public static DomainNotification AssertNotEmpty(string stringValue, string message, string key = "AssertArgumentNotEmpty")
+        public  DomainNotification AssertNotEmpty(string stringValue, string message, string key = "AssertArgumentNotEmpty")
         {
             return (stringValue == null || stringValue.Trim().Length == 0)
                 ? new DomainNotification(key, message)
                 : null;
         }
 
-        public static DomainNotification AssertNotNull(object object1, string message, string key = "AssertArgumentNotNull", RankNotification rank = RankNotification.Low)
+        public  DomainNotification AssertNotNull(object object1, string message, string key = "AssertArgumentNotNull", RankNotification rank = RankNotification.Low)
         {
             return (object1 == null)
                 ? new DomainNotification(key, message, rank)
                 : null;
         }
 
-        public static DomainNotification AssertTrue(bool boolValue, string message, string key = "AssertArgumentTrue", RankNotification rank = RankNotification.Low)
+        public  DomainNotification AssertTrue(bool boolValue, string message, string key = "AssertArgumentTrue", RankNotification rank = RankNotification.Low)
         {
             return (!boolValue)
                 ? new DomainNotification(key, message, rank)
                 : null;
         }
 
-        public static DomainNotification AssertFalse(bool boolValue, string message, string key = "AssertArgumentTrue", RankNotification rank = RankNotification.Low)
+        public  DomainNotification AssertFalse(bool boolValue, string message, string key = "AssertArgumentTrue", RankNotification rank = RankNotification.Low)
         {
             return (boolValue)
                 ? new DomainNotification(key, message, rank)
                 : null;
         }
 
-        public static DomainNotification AssertGenericException(string message, string key = "AssertArgumentGenericException")
+        public  DomainNotification AssertGenericException(string message, string key = "AssertArgumentGenericException")
         {
             return (message != null && message != "")
                 ? new DomainNotification(key, message)

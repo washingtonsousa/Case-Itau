@@ -2,52 +2,90 @@ using Core.Domain.Repository.Interfaces;
 using Core.Data.EF.Context;
 using System;
 using System.Threading.Tasks;
-using Core.Shared.Kernel.Events;
-using Core.Shared.Kernel.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using Core.Shared.Kernel.Interfaces;
+using Core.Shared.Kernel.Events;
+using Core.Shared.Kernel.Helpers;
 
 namespace Core.Data.UnityOfWork
 {
-    public class UnityOfWork : Notifiable, IUnityOfWork
+    public class UnityOfWork : IUnityOfWork
     {
+        private DatabaseContext _context;
+        public IDomainNotificationContext<DomainNotification> _domainNotificationContext { get; private set; }
 
-        private DatabaseContext Context;
-
-        public UnityOfWork(DatabaseContext context, IDomainNotificationContext<DomainNotification> domainNotificationContext) : base (domainNotificationContext)
+        public UnityOfWork(DatabaseContext context, IDomainNotificationContext<DomainNotification> domainNotificationContext)
         {
-            Context = context;
+            _context = context;
+            _domainNotificationContext = domainNotificationContext;
         }
 
-        public void Commit()
+        public bool Commit(bool mandatory = true)
         {
             try
             {
-                Context.SaveChanges();
+                _context.SaveChanges();
+                return true;
             }
             catch (Exception ex)
             {
-                OnError(ex);
+                if (mandatory)
+                    _domainNotificationContext.AddNotification(ex.AsNotification());
             }
+            return false;
         }
 
-        public async Task CommitAsync()
+        public async Task<bool> CommitAsync(bool mandatory = true)
         {
             try
             {
-                await Context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+                return true;
             }
             catch (Exception ex)
             {
-                OnError(ex);
+                if (mandatory)
+                    _domainNotificationContext.AddNotification(ex.AsNotification());
             }
-
+            return false;
         }
 
-        private void OnError(Exception ex)
+        /// <summary>
+        /// Executa uma migration atualizando no banco de dados
+        /// </summary>
+        /// <param name="mandatory">Parametro indica se processo é mandatório, se marcado como verdadeito adiciona uma notificação ao contexto de domínio</param>
+        /// <returns></returns>
+        public bool Migrate(bool mandatory = true)
         {
-            AddNotification(new DomainNotification("AssertException",
-                 ex.InnerException != null ? ex.InnerException.Message : ex.Message
-            ));
+
+            try
+            {
+                _context.Database.Migrate();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (mandatory)
+                    _domainNotificationContext.AddNotification(ex.AsNotification());
+            }
+            return false;
+        }
+
+        public async Task<bool> MigrateAsync(bool mandatory = true)
+        {
+
+            try
+            {
+                await _context.Database.MigrateAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if(mandatory)
+                _domainNotificationContext.AddNotification(ex.AsNotification());
+            }
+
+            return false;
         }
     }
 }

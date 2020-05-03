@@ -36,10 +36,10 @@ namespace Core.Domain.Entities.Concrete.Files
         /// <param name="ano">Ano do campeonato</param>
         /// <param name="line">Linha com colunas separadas por ';'</param>
         /// <returns></returns>
-        public static Classificacao GenerateClassificacaoFromStringTextLine(int ano, string line)
+        public static Classificacao CriarClassificacaoPorLinha(int ano, string line)
         {
 
-                var columnsList = line.Split(Constants.DEFAULT_ETL_COLUMN_SEPARATOR).PrepareTimeColumnForClassificacao();
+                var columnsList = line.Split(Constants.DEFAULT_ETL_COLUMN_SEPARATOR).PrepararColunaTimeParaClassificacao();
                 
                 return new Classificacao(
                      int.Parse(columnsList[(int)ColumnClassificacaoIndex.POSICAO].Trim()),

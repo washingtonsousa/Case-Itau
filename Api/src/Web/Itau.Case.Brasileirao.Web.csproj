@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\Application\Core.Application\Application.csproj" />
     <ProjectReference Include="..\Core\Application\Core.BaseWeb\BaseWeb\Core.BaseWeb.csproj" />
-    <ProjectReference Include="..\Core\Application\Core.Application\Core.Application.csproj" />
     <ProjectReference Include="..\Core\Domain\Core.Domain\Core.Domain.csproj" />
     <ProjectReference Include="..\Core\Shared\Infrastructure\Core.Infrastructure.csproj" />
   </ItemGroup>

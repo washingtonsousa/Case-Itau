@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\Core.Data.Repository\Core.Data.Repository.csproj" />
+    <ProjectReference Include="..\..\Data\Core.Data.Repository\Core.Domain.Repository.csproj" />
     <ProjectReference Include="..\..\Domain\Core.Domain\Core.Domain.csproj" />
     <ProjectReference Include="..\..\Shared\SharedKernel\Shared.Kernel\Core.Shared.Kernel.csproj" />
     <ProjectReference Include="..\Core.BaseWeb\BaseWeb\Core.BaseWeb.csproj" />

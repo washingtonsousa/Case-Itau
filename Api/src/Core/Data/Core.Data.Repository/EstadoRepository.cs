@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Data.Repository
+namespace Core.Domain.Repository
 {
     public class EstadoRepository : Repository, IEstadoRepository
     {

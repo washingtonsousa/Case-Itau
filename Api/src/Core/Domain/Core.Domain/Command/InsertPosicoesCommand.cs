@@ -1,15 +1,11 @@
-﻿using Core.Shared.Kernel.Events;
-using Core.Shared.Kernel.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Core.Domain.Command
 {
     public class InsertPosicoesCommand : Command
     {
-        public InsertPosicoesCommand(IDomainNotificationContext<DomainNotification> domainNotification) : base(domainNotification)
+        public InsertPosicoesCommand()
         {
         }
 

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.2" />
   </ItemGroup>
 
@@ -16,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Builders\" />
     <Folder Include="Repositories\" />
-    <Folder Include="Specification\" />
   </ItemGroup>
 
 </Project>

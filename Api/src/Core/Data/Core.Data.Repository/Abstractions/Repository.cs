@@ -1,6 +1,6 @@
 ﻿using Core.Data.EF.Context;
 
-namespace Core.Data.Repository
+namespace Core.Domain.Repository
 {
     public abstract class Repository
     {

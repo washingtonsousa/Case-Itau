@@ -1,5 +1,5 @@
 ﻿using Core.Shared.Kernel.Events;
-using Core.Shared.Kernel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,15 +15,7 @@ namespace Core.Shared.Kernel.Abstractions
             
             } }
 
-        public IDomainNotificationContext<DomainNotification> _domainNotification { get; }
-
         public readonly IList<DomainNotification> Notifications = new List<DomainNotification>();
-
-        public Notifiable(IDomainNotificationContext<DomainNotification> domainNotification)
-        {
-            _domainNotification = domainNotification;
-        }
-
 
         protected void AddNotification(params DomainNotification[] notifications)
         {
@@ -32,8 +24,16 @@ namespace Core.Shared.Kernel.Abstractions
             notificationsNotNull.ForEach(notification =>
             {
                 Notifications.Add(notification);
-                _domainNotification.AddNotification(notification);
             });
+
+        }
+
+
+        protected void AddNotificationFromException(Exception ex)
+        {
+            AddNotification(new DomainNotification("AssertException",
+               ex.InnerException != null ? ex.InnerException.Message : ex.Message
+          ));
 
         }
 

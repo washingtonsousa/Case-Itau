@@ -6,16 +6,19 @@ using Core.Shared.Kernel.Events;
 using Core.Shared.Kernel.Interfaces;
 using System;
 
-namespace Core.Application.Abstractions
+namespace Application.Abstractions
 {
     public abstract class ApplicationService 
     {
 
-        protected IUnityOfWork _unityOfWork;
+        protected IUnityOfWork _unityOfWork { get; }
 
-        public ApplicationService(IUnityOfWork unityOfWork)
+        protected IAssertionConcern _assertionConcern { get; }
+
+        public ApplicationService(IUnityOfWork unityOfWork, IAssertionConcern assertionConcern)
         {
             _unityOfWork = unityOfWork;
+            _assertionConcern = assertionConcern;
         }
 
 

@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{2B4FE6F7-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{A0D658C7-FB8F-4FCB-AD73-EE01A03FBDF5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Application", "src\Core\Application\Core.Application\Core.Application.csproj", "{F5706777-06A6-48CA-9C87-69F4FC29AC29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Core\Application\Core.Application\Application.csproj", "{F5706777-06A6-48CA-9C87-69F4FC29AC29}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Data", "src\Core\Data\Core.Data\Core.Data\Core.Data.csproj", "{35007794-F7F8-4F20-AB21-5EB0DBBE624A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Data.Repository", "src\Core\Data\Core.Data.Repository\Core.Data.Repository.csproj", "{6974A259-660E-4BC5-B51E-AB568B03BA9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Domain.Repository", "src\Core\Data\Core.Data.Repository\Core.Domain.Repository.csproj", "{6974A259-660E-4BC5-B51E-AB568B03BA9D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Infrastructure", "src\Core\Shared\Infrastructure\Core.Infrastructure.csproj", "{CE4D1DEF-FBFB-4F5C-B3DC-B514A9C2B7F8}"
 EndProject
