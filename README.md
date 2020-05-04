@@ -31,7 +31,7 @@ Para acompanhar os logs de trace utilize o console de saída do VS ou o Visualiz
 
 # Testes Unitários
 
-Projeto utiliza XUnit Como ferramenta de testes unitários.
+### Projeto utiliza XUnit Como ferramenta de testes unitários.
 
 Para executar os testes unitários abra a pasta tests na solution utiliazando Visual Studio e execute os testes clicando com botão direito no projeto.
 
