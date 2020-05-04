@@ -33,6 +33,6 @@ Para acompanhar os logs de trace utilize o console de saída do VS ou o Visualiz
 
 ### Projeto utiliza XUnit Como ferramenta de testes unitários.
 
-Para executar os testes unitários abra a pasta tests na solution utiliazando Visual Studio e execute os testes clicando com botão direito no projeto.
+Para executar os testes unitários abra a pasta tests na solution utilizando Visual Studio e execute os testes clicando com botão direito no projeto.
 
 Testes de estatísticas ocasionarão em erro caso a base de dados ainda não tenha sido importada, estes testes estão intrisicamente ligados aos dados uma vez que fazem parte dos pré requisitos do Case. 
