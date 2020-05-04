@@ -8,13 +8,13 @@ Antes de obter os dados você precisa primeiro configurar a conexão com banco d
 
 A Conection String que deve ser alterada é a "Main".
 
-Após este processo inicie a aplicação e ela estará pronta para ser testada.
+Após este processo inicie a aplicação e ela estará pronta para ser instalada.
 
 Dentro da raíz do projeto é disponibilizada uma collection com endpoints pré inseridos para serem chamados e visualizar os resultados, importe para o postman e os execute após a importação de dados.
 
 Antes de testar os endpoints de estatísticas é necessário primeiro realizar o processo de importação de dados que é feito direto do arquivo "Dados.txt" que está na pasta AppData no projeto Web. 
 
-Atenção! Não altere este arquivo, caso contrário o processo de importação não irá funcionar, caso os dados estejam ordenados de forma errada neste arquivo o processo sempre ocasionará em erro.
+Atenção! Não altere este arquivo, caso contrário o processo de importação não irá funcionar, caso os dados estejam ordenados de forma errada neste arquivo o processo poderá ocasionar em erro.
 
 Após iniciar a aplicação realize a importação de dados executando a Request "Importação de dados" (POST v1/api/importacao) contida na collection, se tudo der certo o retorno será com status 200 OK e a API estará pronta para obter os resultados.
 
@@ -30,3 +30,9 @@ Caso tudo esteja certo os resultados serão obtidos conforme executar os endpoin
 Para acompanhar os logs de trace utilize o console de saída do VS ou o Visualizador de Eventos do Windows.
 
 # Testes Unitários
+
+Projeto utiliza XUnit Como ferramenta de testes unitários.
+
+Para executar os testes unitários abra a pasta tests na solution utiliazando Visual Studio e execute os testes clicando com botão direito no projeto.
+
+Testes de Estatisticas ocasionarão em erro caso a base de dados ainda não tenha sido importada, estes testes estão intrisicamente ligados aos dados uma vez que fazem parte dos pré requisitos do Case. 
