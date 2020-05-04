@@ -77,6 +77,27 @@ namespace AppTests
         }
 
 
+
+        [InlineData("timenaoexistente")]
+        [InlineData(null)]
+        [InlineData("")]
+        [Theory]
+        public void EstatisticasPorTimeRetornaNulo(string nomeTime)
+        {
+
+            IEstatisticasAppService appService = new EstatisticasAppService(
+                _mockUnityOfWork.Object,
+                new AssertionConcern(new DomainNotificationContext()),
+                new PosicaoRepository(new DatabaseContext(ConfigurationFacade.BuildConfiguraion())));
+
+            IList<EstatisticasResultadosViewModel> resultado =
+                appService.ObterEstatisticasPorTime(nomeTime).GetAwaiter().GetResult();
+
+
+            Assert.Null(resultado);
+        }
+
+
         [Fact]
         public void EstatisticasPorEstadosRetornaEstados()
         {

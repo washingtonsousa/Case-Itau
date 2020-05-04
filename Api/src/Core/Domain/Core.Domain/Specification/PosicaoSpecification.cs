@@ -28,5 +28,15 @@ namespace Core.Domain.Specification
                 );
         }
 
+
+        public static bool ParametroVazioOuNulo(this string nomeTime, IAssertionConcern assertionConcern)
+        {
+            return !assertionConcern.IsSatisfiedBy(
+
+                assertionConcern.AssertNotEmpty(nomeTime, "Parametro nao pode ser vazio ou nulo")
+
+                );
+        }
+
     }
 }

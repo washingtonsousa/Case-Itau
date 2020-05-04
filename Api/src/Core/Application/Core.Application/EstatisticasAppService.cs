@@ -25,6 +25,10 @@ namespace Application
 
         public async Task<IList<EstatisticasResultadosViewModel>> ObterEstatisticasPorTime(string nomeTime)
         {
+
+            if (nomeTime.ParametroVazioOuNulo(_assertionConcern))
+                return null;
+
             var posicoes = await _posicaoRepository.ObterLista(nomeTime?.ToUpper());
 
             if (posicoes.TimeNaoEncontradoNasPosicoes(_assertionConcern))
