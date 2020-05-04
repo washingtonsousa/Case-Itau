@@ -35,4 +35,4 @@ Projeto utiliza XUnit Como ferramenta de testes unitários.
 
 Para executar os testes unitários abra a pasta tests na solution utiliazando Visual Studio e execute os testes clicando com botão direito no projeto.
 
-Testes de Estatisticas ocasionarão em erro caso a base de dados ainda não tenha sido importada, estes testes estão intrisicamente ligados aos dados uma vez que fazem parte dos pré requisitos do Case. 
+Testes de estatísticas ocasionarão em erro caso a base de dados ainda não tenha sido importada, estes testes estão intrisicamente ligados aos dados uma vez que fazem parte dos pré requisitos do Case. 
