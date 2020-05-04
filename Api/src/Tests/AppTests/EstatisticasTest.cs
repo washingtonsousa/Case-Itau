@@ -6,6 +6,7 @@ using Core.Data.EF.Context;
 using Core.Data.UnityOfWork;
 using Core.Domain.Fakes;
 using Core.Domain.Repository;
+using Core.Domain.Repository.Interfaces;
 using Core.Shared.Kernel.Events;
 using Core.Shared.Kernel.Handles;
 using Microsoft.Extensions.Configuration;
@@ -17,15 +18,18 @@ using Xunit;
 
 namespace AppTests
 {
-    
+
     public class EstatisticasTest
     {
+        private readonly Mock<IUnityOfWork> _mockUnityOfWork = new Mock<IUnityOfWork>();
+
+
         [Fact]
         public void EstatisticasPorTimeQueNaoExisteRetornaVazio()
         {
 
             IEstatisticasAppService appService = new EstatisticasAppService(
-                new FakeSuccessfullUnityOfWork(), 
+                _mockUnityOfWork.Object, 
                 new AssertionConcern(new DomainNotificationContext()), 
                 new PosicaoRepository(new DatabaseContext(ConfigurationFacade.BuildConfiguraion())));
 
@@ -42,7 +46,7 @@ namespace AppTests
         {
 
             IEstatisticasAppService appService = new EstatisticasAppService(
-                new FakeSuccessfullUnityOfWork(),
+                _mockUnityOfWork.Object,
                 new AssertionConcern(new DomainNotificationContext()),
                 new PosicaoRepository(new DatabaseContext(ConfigurationFacade.BuildConfiguraion())));
 
@@ -61,7 +65,7 @@ namespace AppTests
         {
 
             IEstatisticasAppService appService = new EstatisticasAppService(
-                new FakeSuccessfullUnityOfWork(),
+                _mockUnityOfWork.Object,
                 new AssertionConcern(new DomainNotificationContext()),
                 new PosicaoRepository(new DatabaseContext(ConfigurationFacade.BuildConfiguraion())));
 
@@ -78,7 +82,7 @@ namespace AppTests
         {
 
             IEstatisticasAppService appService = new EstatisticasAppService(
-                new FakeSuccessfullUnityOfWork(),
+                _mockUnityOfWork.Object,
                 new AssertionConcern(new DomainNotificationContext()),
                 new PosicaoRepository(new DatabaseContext(ConfigurationFacade.BuildConfiguraion())));
 
@@ -95,7 +99,7 @@ namespace AppTests
         {
 
             IEstatisticasAppService appService = new EstatisticasAppService(
-                new FakeSuccessfullUnityOfWork(),
+                _mockUnityOfWork.Object,
                 new AssertionConcern(new DomainNotificationContext()),
                 new PosicaoRepository(new DatabaseContext(ConfigurationFacade.BuildConfiguraion())));
 
