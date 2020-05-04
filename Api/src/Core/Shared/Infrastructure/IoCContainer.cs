@@ -53,7 +53,7 @@ namespace Core.Infrastructure
 
         public static void InjectApplicationServices(this IServiceCollection services)
         {
-            services.AddTransient<IImportDataAppService, ImportaDadosAppService>();
+            services.AddTransient<IImportaDadosAppService, ImportaDadosAppService>();
             services.AddTransient<IEstatisticasAppService, EstatisticasAppService>();
         }
 

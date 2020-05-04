@@ -12,9 +12,9 @@ namespace Itau.Case.Brasileirao.Web.Web.Controllers
     public class ImportaDadosController : BaseController<ImportaDadosController>
     {
 
-        private IImportDataAppService _importDataAppService;
+        private IImportaDadosAppService _importDataAppService;
 
-        public ImportaDadosController(IDomainNotificationContext<DomainNotification> domainNotification, IImportDataAppService importDataAppService, ILogger<ImportaDadosController> logger) : base(domainNotification, logger)
+        public ImportaDadosController(IDomainNotificationContext<DomainNotification> domainNotification, IImportaDadosAppService importDataAppService, ILogger<ImportaDadosController> logger) : base(domainNotification, logger)
         {
             _importDataAppService = importDataAppService;
         }

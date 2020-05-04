@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public class ImportaDadosAppService : ApplicationService, IImportDataAppService
+    public class ImportaDadosAppService : ApplicationService, IImportaDadosAppService
     {
         public ImportaDadosAppService(IUnityOfWork unityOfWork,
             IAssertionConcern assertionConcern,
@@ -37,20 +37,20 @@ namespace Application
         /// Executa o processo inicial de importação de dados e caso a base de dados não exista já realiza a migração inicial
         /// </summary>
         /// <returns>TASK VOID</returns>
-        public async Task ExecutarImportacaoDeDados()
+        public async Task<bool> ExecutarImportacaoDeDados()
         {
 
             await _unityOfWork.MigrateAsync(false);
 
-            var campeonatosFromDb = await _campeonatoRepository.Get();
+            var campeonatosFromDb = await _campeonatoRepository.ObterLista();
 
             IList<Classificacao> classificacaoList = _classificacaoFactory.CreateClassificacaoListFromFile(Constants.DEFAULT_ETL_FILE_NAME);
 
             if (!classificacaoList.Validar(_assertionConcern))
-                return;
+                return false;
 
             if (classificacaoList.JaFoiImportado(campeonatosFromDb, _assertionConcern))
-                return;
+                return false;
 
             classificacaoList = classificacaoList.Where(c => !campeonatosFromDb.Any(cp => cp.Ano == c.Ano)).ToList();
 
@@ -65,7 +65,8 @@ namespace Application
             AddPosicoesForCampeonatos(classificacaoList, estados, campeonatos);
 
             await _campeonatoRepository.AddRange(campeonatos);
-            await _unityOfWork.CommitAsync();
+            
+            return await _unityOfWork.CommitAsync();
 
 
         }

@@ -44,7 +44,7 @@ namespace Core.Shared.Kernel.Events
 
         public  DomainNotification AssertListLength<T>(IEnumerable<T> list, int minimum, string message, string key = "AssertArgumentLength", RankNotification rank = RankNotification.Low)
         {
-            return (list == null || list.Count() <= minimum)
+            return (list == null || list.Count() < minimum)
                 ? new DomainNotification(key, message, rank)
                 : null;
         }

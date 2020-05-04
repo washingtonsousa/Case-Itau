@@ -2,8 +2,8 @@
 
 namespace Application.Interfaces
 {
-    public interface IImportDataAppService
+    public interface IImportaDadosAppService
     {
-        Task ExecutarImportacaoDeDados();
+        Task<bool> ExecutarImportacaoDeDados();
     }
 }

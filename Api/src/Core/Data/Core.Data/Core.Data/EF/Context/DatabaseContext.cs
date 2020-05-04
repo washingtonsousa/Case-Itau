@@ -15,23 +15,26 @@ namespace Core.Data.EF.Context
         public DbSet<Time> Times { get; set; }
         public DbSet<Posicao> Posicoes { get; set; }
         public DbSet<Campeonato> Campeonatos { get; set; }
+        public string ConnectionString { get; set; }
 
         public DatabaseContext(IConfiguration configuration)
         {
             _configuration = configuration;
+            ConnectionString = _configuration.GetValue<string>("ConnectionStrings:Main");
         }
 
         public DatabaseContext(IConfiguration configuration, DbContextOptions<DatabaseContext> options)
             : base(options)
         {
             _configuration = configuration;
+            ConnectionString = _configuration.GetValue<string>("ConnectionStrings:Main");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql(_configuration.GetValue<string>("ConnectionStrings:Main"), 
+                optionsBuilder.UseMySql(ConnectionString, 
                      optionsBuilder => optionsBuilder.ServerVersion(
                                                             new Version(10, 4, 7),
                                                             ServerType.MariaDb));

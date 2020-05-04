@@ -8,7 +8,7 @@ namespace Core.Domain.Interfaces.Concrete.Repository
     {
 
         Task AddRange(IList<Campeonato> campeonatos);
-        Task<IList<Campeonato>> Get();
+        Task<IList<Campeonato>> ObterLista();
 
     }
 }

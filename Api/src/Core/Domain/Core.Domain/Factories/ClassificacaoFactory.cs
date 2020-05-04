@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Shared.Data;
+using Core.Domain.Helpers;
+using Core.Domain.Enums;
 
 namespace Core.Domain.Factories
 {
@@ -51,7 +54,22 @@ namespace Core.Domain.Factories
 
                     foreach (string line in timesList)
                     {
-                        classificacaoList.Add(Classificacao.CriarClassificacaoPorLinha(ano, line));
+                        var columnsList = line.Split(Constants.DEFAULT_ETL_COLUMN_SEPARATOR).PrepararColunaTimeParaClassificacao();
+
+                        classificacaoList.Add(new Classificacao(
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.POSICAO].Trim()),
+                        ano,
+                        columnsList[(int)ColumnClassificacaoIndex.TIME].Trim(),
+                        columnsList[(int)ColumnClassificacaoIndex.ESTADO].Trim(),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.PONTOS].Trim()),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.JOGOS].Trim()),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.VITORIAS].Trim()),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.EMPATES].Trim()),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.DERROTAS].Trim()),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.GOLSPRO].Trim()),
+                        int.Parse(columnsList[(int)ColumnClassificacaoIndex.GOLSCONTRA].Trim())
+                        ));
+
                     }
                 }
             }
@@ -63,7 +81,7 @@ namespace Core.Domain.Factories
             }
 
             return classificacaoList;
-        }  
+        }
 
 
     }

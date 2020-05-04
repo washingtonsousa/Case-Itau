@@ -20,7 +20,7 @@ namespace Core.Domain.Repository
             await _context.AddRangeAsync(campeonatos);
         }
 
-        public async Task<IList<Campeonato>> Get()
+        public async Task<IList<Campeonato>> ObterLista()
         {
            return await _context.Campeonatos.ToListAsync();
         }
